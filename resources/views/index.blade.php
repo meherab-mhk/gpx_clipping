@@ -31,7 +31,7 @@
         <div class="navbar-align">
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul class="navbar-nav">
-              <li><a class="nav-link active" aria-current="page" href="#navnav">Home</a></li>
+              <li><a class="nav-link active" aria-current="page" href="/">Home</a></li>
               <li><a class="nav-link" href="#service">Services</a></li>
               <li><a class="nav-link" href="#price">Pricing</a></li>
               <li><a class="nav-link" href="#footer">Contact</a></li>
@@ -41,6 +41,11 @@
       </div>
     </div>
   </nav>
+  @if(session()->has('success'))
+    <div class="alert alert-success">
+       <h4>{{ session()->get('success') }}</h4> 
+    </div>
+@endif
   <!-------------------------Menu part end----------------------------->
   <!-------------------------Banner part start----------------------------->
   <section id="banner">
@@ -54,9 +59,6 @@
             <h4>Try with a free sample</h4>
             <p>Upload your first file & test our services</p>
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalUploadForm">Upload</button>
-
-
-
           </div>
         </div>
         <div class="col-lg-6 col-xl-6 col-xxl-6"></div>
@@ -80,32 +82,29 @@
       <div class="modal-body mx-3">
 
 
-      <form method='post' action='store.php' enctype="multipart/form-data">
-          <i class="fas fa-envelope prefix grey-text"></i> Your email
-           <input type="email" name="email" id="" class='form-control'><br>
+      <form method='post' action='/add-order' enctype="multipart/form-data">
+            @csrf 
+           <i class="fas fa-user prefix grey-text pb-3"></i> Your Name
+           <input type="text" name="username" id="" class='form-control' required><br>
 
-          
-           <i class="fas fa-image prefix grey-text"></i> Select file  
-          <input type='file' name='file' id='file' class='form-control' ><br>
-          <input type='button' class='btn btn-info' value='Upload' id='btn_upload'>
+          <i class="fas fa-envelope prefix grey-text pb-3"></i> Your email
+           <input type="email" name="useremail" id="" class='form-control' required><br>
+
+
+           <i class="fas fa-comment prefix grey-text pb-3"></i> Instructions 
+          <input type="text" name='instructions' id='' class='form-control'><br>
+
+           <i class="fas fa-image prefix grey-text pb-3"></i> Upload images 
+          <input type='file' name='images[]' id='file' class='form-control' multiple required><br>
+
+      
+        <button type="submit" class="btn btn-success" value='Upload' id='btn_upload'>Upload</button>
         </form>
 
       
-        <!-- <div class="md-form mb-4">
-          <i class="fas fa-envelope prefix grey-text"></i>
-          <input type="email" id="form2" class="form-control validate">
-          <label data-error="wrong" data-success="right" for="form2">Your email</label>
-        </div> -->
-        <!-- <div class="md-form mb-4">
-          <i class="fas fa-image prefix grey-text"></i>
-          <input type="file" id="form2" class="form-control validate">
-          <label data-error="wrong" data-success="right" for="form2">Your image</label>
-        </div> -->
 
       </div>
-      <!-- <div class="modal-footer d-flex justify-content-center">
-        <button class="btn btn-primary">Upload<i class="fas fa-paper-plane-o ml-1"></i></button>
-      </div> -->
+
     </div>
   </div>
 </div>
@@ -379,7 +378,7 @@
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Non voluptatibus pariatur fuga
               </p>
-              <button class="btn btn-primary"> Upload</button>
+              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalUploadForm">Upload</button>
             </div>
           </div>
         </div>
